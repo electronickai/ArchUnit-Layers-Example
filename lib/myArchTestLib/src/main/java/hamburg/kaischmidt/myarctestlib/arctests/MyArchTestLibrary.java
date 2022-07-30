@@ -28,4 +28,9 @@ public class MyArchTestLibrary {
     public static HexagonalArchitecture hexagonalArchitecture() {
         return new HexagonalArchitecture();
     }
+
+    @PublicAPI(usage = ACCESS)
+    public static DeprecationArchitecture checkDeprecated() {
+        return new DeprecationArchitecture();
+    }
 }

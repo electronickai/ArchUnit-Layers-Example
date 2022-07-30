@@ -7,8 +7,6 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 
-
-
 public class DoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> {
 
     public DoNotUseDeprecatedArcCondition(String description, Object... args) {
@@ -20,8 +18,8 @@ public class DoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> 
     }
 
     @Override
-    public void check(JavaCodeUnit javaMethod, ConditionEvents conditionEvents) {
-        javaMethod.getCallsFromSelf().forEach(call -> checkCall(call, conditionEvents));
+    public void check(JavaCodeUnit codeUnit, ConditionEvents conditionEvents) {
+        codeUnit.getCallsFromSelf().forEach(call -> checkCall(call, conditionEvents));
     }
 
     private void checkCall(JavaCall<?> call, ConditionEvents conditionEvents) {
@@ -29,9 +27,7 @@ public class DoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> 
 
         if (target.isAnnotatedWith(Deprecated.class) || target.getOwner().isAnnotatedWith(Deprecated.class)) {
             conditionEvents.add(SimpleConditionEvent.violated(call.getOrigin(), "CodeUnit "
-                + call.getOrigin() + " calls deprecated " + call.getTarget().getFullName()));
+                + call.getOrigin() + " calls deprecated " + target.getFullName()));
         }
-
     }
-
 }
