@@ -4,12 +4,18 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.EvaluationResult;
 import com.tngtech.archunit.lang.Priority;
+import com.tngtech.archunit.thirdparty.com.google.common.base.Joiner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.codeUnits;
+import static java.lang.System.lineSeparator;
 
 public class DeprecationArchitecture implements ArchRule {
 
@@ -39,13 +45,28 @@ public class DeprecationArchitecture implements ArchRule {
   @Override public EvaluationResult evaluate(JavaClasses classes) {
     EvaluationResult result = new EvaluationResult(this, Priority.MEDIUM);
     DeprecatedPredicate predicate = new DeprecatedPredicate();
-    DoNotUseDeprecatedArcCondition condition = new DoNotUseDeprecatedArcCondition();
+    ConfigurableDoNotUseDeprecatedArcCondition condition = configureCondition();
     result.add(codeUnits().that(predicate).should(condition).evaluate(classes));
     return result;
   }
 
+  private ConfigurableDoNotUseDeprecatedArcCondition configureCondition() {
+    return new ConfigurableDoNotUseDeprecatedArcCondition(packagesAllowedToBeCalled,
+        packagesAllowedToUseDeprecated);
+  }
+
   @Override public String getDescription() {
-    throw new NotImplementedException();
+    List<String> lines = new ArrayList<>();
+    lines.add("Deprecation checked architecture");
+    if (!packagesAllowedToBeCalled.isEmpty()) {
+      lines.add("with the following packages allowed to be called");
+      lines.addAll(packagesAllowedToBeCalled);
+    }
+    if (!packagesAllowedToUseDeprecated.isEmpty()) {
+      lines.add("with the following packages allowed to call deprecated methods");
+      lines.addAll(packagesAllowedToUseDeprecated);
+    }
+    return Joiner.on(lineSeparator()).join(lines);
   }
 
   private DeprecationArchitecture addPackageToBeCalled(String packageIdentifier) {
@@ -73,6 +94,5 @@ public class DeprecationArchitecture implements ArchRule {
     public DeprecationArchitecture allowToUseDeprecated() {
       return DeprecationArchitecture.this.addPackageToUseDeprecated(packageIdentifier);
     }
-
   }
 }

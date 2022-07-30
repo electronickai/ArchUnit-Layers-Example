@@ -10,9 +10,15 @@ public class NoDeprecationCallsTest {
   @ArchTest
   public static final ArchRule doNotUseDeprecatedOps = MyArchTestLibrary.DO_NOT_USE_DEPRECATED_OPS;
 
+  //This would be an alternative way for the same functionality
+  @ArchTest
+  public static final ArchRule doNotUseDeprecatedOpsAlternative = MyArchTestLibrary.checkDeprecated();
+
+  //with a configuration of a whitelist the test passes
+  // (one of the two packages configuration would be sufficient to make the test pass)
   @ArchTest
   public static final ArchRule configureDeprecatedOpCalls =
       MyArchTestLibrary.checkDeprecated()
-          .packages("..in.migration..").allowedToBeCalled()
-          .packages("..my.deprecation.calls").allowToUseDeprecated();
+          .packages("deprecated.callees").allowedToBeCalled()
+          .packages("deprecated.callers").allowToUseDeprecated();
 }
