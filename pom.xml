@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hamburg.kaischmidt</groupId>
+    <artifactId>myArchTestLib</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <archunit.version>0.23.1</archunit.version>
+        <lombok.version>1.18.12</lombok.version>
+        <junit.version>5.9.0</junit.version>
+        <archunit-junit5.version>1.0.0-rc1</archunit-junit5.version>
+        <myarctestlib.version>0.0.1</myarctestlib.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit</artifactId>
+                <version>${archunit.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit-junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>hamburg.kaischmidt</groupId>
+            <artifactId>arctests</artifactId>
+            <version>${myarctestlib.version}</version>
+            <scope>test</scope>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+    <modules>
+        <module>lib/myArchTestLib</module>
+        <module>testprj/sunshine</module>
+        <module>testprj/sunshine2</module>
+    </modules>
+</project>

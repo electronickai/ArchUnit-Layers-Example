@@ -4,7 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hamburg.kai-schmidt</groupId>
+    <parent>
+        <groupId>hamburg.kaischmidt</groupId>
+        <artifactId>myArchTestLib</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>hamburg.kaischmidt</groupId>
     <artifactId>testprj</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -31,7 +38,6 @@
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit-junit5</artifactId>
-            <version>1.0.0-rc1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -41,7 +47,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>hamburg.kai-schmidt</groupId>
+            <groupId>hamburg.kaischmidt</groupId>
             <artifactId>arctests</artifactId>
             <version>0.0.1</version>
             <scope>test</scope>
