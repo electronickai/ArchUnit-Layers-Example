@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>hamburg.kaischmidt</groupId>
-    <artifactId>testprj</artifactId>
+    <artifactId>rain</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -28,12 +28,15 @@
         </plugins>
     </build>
 
+
     <dependencies>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.9.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
@@ -43,14 +46,11 @@
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit</artifactId>
-            <version>0.23.1</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>hamburg.kaischmidt</groupId>
             <artifactId>arctests</artifactId>
-            <version>0.0.1</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

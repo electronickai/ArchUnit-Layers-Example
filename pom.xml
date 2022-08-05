@@ -10,6 +10,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <archunit.version>0.23.1</archunit.version>
@@ -17,6 +18,7 @@
         <junit.version>5.9.0</junit.version>
         <archunit-junit5.version>1.0.0-rc1</archunit-junit5.version>
         <myarctestlib.version>0.0.1</myarctestlib.version>
+        <slf4j.version>1.7.36</slf4j.version>
     </properties>
 
     <dependencyManagement>
@@ -38,8 +40,18 @@
                 <version>${lombok.version}</version>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
 
-
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.23.1</version>
+                <scope>test</scope>
+            </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -66,6 +78,6 @@
     <modules>
         <module>lib/myArchTestLib</module>
         <module>testprj/sunshine</module>
-        <module>testprj/sunshine2</module>
+        <module>testprj/rain</module>
     </modules>
 </project>

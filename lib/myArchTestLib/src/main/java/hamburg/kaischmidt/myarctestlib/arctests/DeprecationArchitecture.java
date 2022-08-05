@@ -7,11 +7,10 @@ import com.tngtech.archunit.lang.Priority;
 import com.tngtech.archunit.thirdparty.com.google.common.base.Joiner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.codeUnits;
