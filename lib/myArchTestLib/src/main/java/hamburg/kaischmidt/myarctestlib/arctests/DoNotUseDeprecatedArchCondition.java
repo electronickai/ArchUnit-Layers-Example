@@ -7,13 +7,13 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 
-public class DoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> {
+public class DoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit> {
 
-    public DoNotUseDeprecatedArcCondition(String description, Object... args) {
+    public DoNotUseDeprecatedArchCondition(String description, Object... args) {
         super(description, args);
     }
 
-    public DoNotUseDeprecatedArcCondition() {
+    public DoNotUseDeprecatedArchCondition() {
         this("not call deprecated CodeUnits");
     }
 
