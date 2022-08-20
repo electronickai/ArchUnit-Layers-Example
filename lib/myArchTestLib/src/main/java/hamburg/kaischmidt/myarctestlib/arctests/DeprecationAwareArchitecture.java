@@ -16,7 +16,7 @@ import java.util.Set;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.codeUnits;
 import static java.lang.System.lineSeparator;
 
-public class DeprecationArchitecture implements ArchRule {
+public class DeprecationAwareArchitecture implements ArchRule {
 
   private final Set<String> packagesAllowedToBeCalled = new LinkedHashSet<>();
   private final Set<String> packagesAllowedToUseDeprecated = new LinkedHashSet<>();
@@ -68,12 +68,12 @@ public class DeprecationArchitecture implements ArchRule {
     return Joiner.on(lineSeparator()).join(lines);
   }
 
-  private DeprecationArchitecture addPackageToBeCalled(String packageIdentifier) {
+  private DeprecationAwareArchitecture addPackageToBeCalled(String packageIdentifier) {
     packagesAllowedToBeCalled.add(packageIdentifier);
     return this;
   }
 
-  private DeprecationArchitecture addPackageToUseDeprecated(String packageIdentifier) {
+  private DeprecationAwareArchitecture addPackageToUseDeprecated(String packageIdentifier) {
     packagesAllowedToUseDeprecated.add(packageIdentifier);
     return this;
   }
@@ -86,12 +86,12 @@ public class DeprecationArchitecture implements ArchRule {
       this.packageIdentifier = packageIdentifier;
     }
 
-    public DeprecationArchitecture allowedToBeCalled() {
-      return DeprecationArchitecture.this.addPackageToBeCalled(packageIdentifier);
+    public DeprecationAwareArchitecture allowedToBeCalled() {
+      return DeprecationAwareArchitecture.this.addPackageToBeCalled(packageIdentifier);
     }
 
-    public DeprecationArchitecture allowToUseDeprecated() {
-      return DeprecationArchitecture.this.addPackageToUseDeprecated(packageIdentifier);
+    public DeprecationAwareArchitecture allowToUseDeprecated() {
+      return DeprecationAwareArchitecture.this.addPackageToUseDeprecated(packageIdentifier);
     }
   }
 }
