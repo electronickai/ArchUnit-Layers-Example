@@ -14,23 +14,10 @@ public class ConfigurableDoNotUseDeprecatedArcCondition extends ArchCondition<Ja
 
   public static final String DEFAULT_DESCRIPTION = "not call deprecated CodeUnits";
   private final Set<String> packagesAllowedToBeCalled;
-  private final Set<String> packagesAllowedToUseDeprecated;
 
-  public ConfigurableDoNotUseDeprecatedArcCondition() {
-    this(DEFAULT_DESCRIPTION);
-  }
-
-  public ConfigurableDoNotUseDeprecatedArcCondition(Set<String> packagesAllowedToBeCalled,
-      Set<String> packagesAllowedToUseDeprecated) {
+  public ConfigurableDoNotUseDeprecatedArcCondition(Set<String> packagesAllowedToBeCalled) {
     super(DEFAULT_DESCRIPTION);
     this.packagesAllowedToBeCalled = packagesAllowedToBeCalled;
-    this.packagesAllowedToUseDeprecated = packagesAllowedToUseDeprecated;
-  }
-
-  public ConfigurableDoNotUseDeprecatedArcCondition(String description, Object... args) {
-    super(description, args);
-    this.packagesAllowedToBeCalled = new LinkedHashSet<>();
-    this.packagesAllowedToUseDeprecated = new LinkedHashSet<>();
   }
 
   @Override
@@ -53,17 +40,11 @@ public class ConfigurableDoNotUseDeprecatedArcCondition extends ArchCondition<Ja
   }
 
   private boolean callIsConfiguredToBeValid(JavaCall<?> call) {
-    return callerIsAllowedToUseDeprecated(call.getOrigin())
-        || targetIsAllowedToBeUsed(call.getTarget());
+    return targetIsAllowedToBeUsed(call.getTarget());
   }
 
   private boolean targetIsAllowedToBeUsed(AccessTarget target) {
     return packagesAllowedToBeCalled.stream()
         .anyMatch(packagePrefix -> target.getFullName().startsWith(packagePrefix));
-  }
-
-  private boolean callerIsAllowedToUseDeprecated(JavaCodeUnit origin) {
-    return packagesAllowedToUseDeprecated.stream()
-        .anyMatch(packagePrefix -> origin.getFullName().startsWith(packagePrefix));
   }
 }

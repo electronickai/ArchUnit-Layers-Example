@@ -7,7 +7,6 @@ import com.tngtech.archunit.lang.Priority;
 import com.tngtech.archunit.thirdparty.com.google.common.base.Joiner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -43,15 +42,10 @@ public class DeprecationAwareArchitecture implements ArchRule {
 
   @Override public EvaluationResult evaluate(JavaClasses classes) {
     EvaluationResult result = new EvaluationResult(this, Priority.MEDIUM);
-    DeprecatedPredicate predicate = new DeprecatedPredicate();
-    ConfigurableDoNotUseDeprecatedArcCondition condition = configureCondition();
+    ConfigurableDeprecatedPredicate predicate = new ConfigurableDeprecatedPredicate(packagesAllowedToUseDeprecated);
+    ConfigurableDoNotUseDeprecatedArcCondition condition = new ConfigurableDoNotUseDeprecatedArcCondition(packagesAllowedToBeCalled);
     result.add(codeUnits().that(predicate).should(condition).evaluate(classes));
     return result;
-  }
-
-  private ConfigurableDoNotUseDeprecatedArcCondition configureCondition() {
-    return new ConfigurableDoNotUseDeprecatedArcCondition(packagesAllowedToBeCalled,
-        packagesAllowedToUseDeprecated);
   }
 
   @Override public String getDescription() {
@@ -86,11 +80,11 @@ public class DeprecationAwareArchitecture implements ArchRule {
       this.packageIdentifier = packageIdentifier;
     }
 
-    public DeprecationAwareArchitecture allowedToBeCalled() {
+    public DeprecationAwareArchitecture areAllowedToBeCalled() {
       return DeprecationAwareArchitecture.this.addPackageToBeCalled(packageIdentifier);
     }
 
-    public DeprecationAwareArchitecture allowToUseDeprecated() {
+    public DeprecationAwareArchitecture areAllowedToUseDeprecated() {
       return DeprecationAwareArchitecture.this.addPackageToUseDeprecated(packageIdentifier);
     }
   }

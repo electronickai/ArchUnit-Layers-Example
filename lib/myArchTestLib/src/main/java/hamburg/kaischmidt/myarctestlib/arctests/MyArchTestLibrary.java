@@ -30,7 +30,7 @@ public class MyArchTestLibrary {
     }
 
     @PublicAPI(usage = ACCESS)
-    public static DeprecationAwareArchitecture checkDeprecated() {
+    public static DeprecationAwareArchitecture deprecationAwareArchitecture() {
         return new DeprecationAwareArchitecture();
     }
 }

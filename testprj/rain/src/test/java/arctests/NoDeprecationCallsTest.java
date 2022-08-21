@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AnalyzeClasses(packages = "deprecated..")
 public class NoDeprecationCallsTest {
 
-    //This test fails because the deprecated methods are called from the non deprecated "CallerOfDeprecatedMethod"
+    //This ArchUnit check fails because the deprecated methods are called from the non deprecated "CallerOfDeprecatedMethod"
     @ArchTest
     public static void test_doNotUseDeprecatedOps(JavaClasses classes) {
 
@@ -32,7 +32,7 @@ public class NoDeprecationCallsTest {
     public static void test_doNotUseDeprecatedOpsAlternative(JavaClasses classes) {
 
         try {
-            MyArchTestLibrary.checkDeprecated().check(classes);
+            MyArchTestLibrary.deprecationAwareArchitecture().check(classes);
         } catch (Throwable err) {
             assertThat(err)
                     .hasMessageContaining("Rule 'Deprecation checked architecture' was violated")
@@ -43,8 +43,11 @@ public class NoDeprecationCallsTest {
         throw new AssertionError("This should throw an AssertionError to indicated that the architecture is wrong");
     }
 
-    //with a configuration of a whitelist the test passes
+    // with a configuration of a whitelist the test passes
     // (one of the two packages configuration would be sufficient to make the test pass)
     @ArchTest
-    public static final ArchRule configureDeprecatedOpCalls = MyArchTestLibrary.checkDeprecated().packages("deprecated.callees").allowedToBeCalled().packages("deprecated.callers").allowToUseDeprecated();
+    public static final ArchRule configureDeprecatedOpCalls =
+            MyArchTestLibrary.deprecationAwareArchitecture()
+                    .packages("deprecated.callees").areAllowedToBeCalled()
+                    .packages("deprecated.callers").areAllowedToUseDeprecated();
 }
