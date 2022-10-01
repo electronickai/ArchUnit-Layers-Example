@@ -79,5 +79,6 @@
         <module>lib/myArchTestLib</module>
         <module>testprj/sunshine</module>
         <module>testprj/rain</module>
+        <module>testprj/core-example</module>
     </modules>
 </project>
