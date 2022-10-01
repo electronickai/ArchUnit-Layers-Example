@@ -10,29 +10,28 @@ import java.util.Set;
 
 public class AddMethodsMustAccessSetCondition extends ArchCondition<JavaCodeUnit> {
 
-  public AddMethodsMustAccessSetCondition() {
-    this("access fields of type Set if the method starts with add");
-  }
-
-  public AddMethodsMustAccessSetCondition(String description, Object... args) {
-    super(description, args);
-  }
-
-  @Override
-  public void check(JavaCodeUnit codeUnit, ConditionEvents events) {
-    if (!codeUnit.getName().startsWith("add")) {
-      return;
+    public AddMethodsMustAccessSetCondition() {
+        this("access fields of type Set if the method starts with add");
     }
 
-    for (JavaFieldAccess fieldAccess : codeUnit.getFieldAccesses()) {
-      if (!(fieldAccess.getTargetOwner() instanceof Set)) {
+    public AddMethodsMustAccessSetCondition(String description, Object... args) {
+        super(description, args);
+    }
+
+    @Override
+    public void check(JavaCodeUnit codeUnit, ConditionEvents events) {
+        if (!codeUnit.getName().startsWith("add")) {
+            return;
+        }
+
+        for (JavaFieldAccess fieldAccess : codeUnit.getFieldAccesses()) {
+            if (fieldAccess.getTarget().getType().toErasure().isAssignableFrom(Set.class)) {
+                events.add(SimpleConditionEvent.satisfied(codeUnit, "CodeUnit "
+                        + codeUnit + " starting with add does access a field of type Set. All fine "));
+                return;
+            }
+        }
         events.add(SimpleConditionEvent.violated(codeUnit, "CodeUnit "
-            + codeUnit + " starting with add does not access a field of type Set "));
-      } else {
-        events.add(SimpleConditionEvent.satisfied(codeUnit, "CodeUnit "
-            + codeUnit + " starting with add does access a field of type Set. All fine "));
-      }
+                + codeUnit + " starting with add does not access a field of type Set "));
     }
-
-  }
 }
