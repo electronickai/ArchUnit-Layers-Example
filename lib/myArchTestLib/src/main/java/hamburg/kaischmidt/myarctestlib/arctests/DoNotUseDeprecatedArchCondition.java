@@ -7,6 +7,8 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 
+import java.util.Collection;
+
 public class DoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit> {
 
   public DoNotUseDeprecatedArchCondition(String description, Object... args) {
@@ -17,7 +19,8 @@ public class DoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit>
     this("not call deprecated CodeUnits");
   }
 
-  @Override public void init(Iterable<JavaCodeUnit> allObjectsToTest) {
+  @Override
+  public void init(Collection<JavaCodeUnit> allObjectsToTest) {
     System.out.println("INIT: objects to test are:");
     allObjectsToTest.forEach(codeUnit -> System.out.println(codeUnit.getFullName()));
   }
@@ -40,8 +43,6 @@ public class DoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit>
   }
 
   @Override public void finish(ConditionEvents events) {
-    System.out.println("FINISH: satisfied calls:");
-    events.getAllowed()
-        .forEach(conditionEvent -> System.out.println(conditionEvent.getDescriptionLines()));
+    System.out.println("FINISH: violated calls: " + events.getViolating().size());
   }
 }

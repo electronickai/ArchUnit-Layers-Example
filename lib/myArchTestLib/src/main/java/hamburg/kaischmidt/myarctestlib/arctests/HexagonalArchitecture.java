@@ -2,7 +2,6 @@ package hamburg.kaischmidt.myarctestlib.arctests;
 
 import com.tngtech.archunit.PublicAPI;
 import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.base.Optional;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.lang.ArchRule;
@@ -19,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.tngtech.archunit.PublicAPI.Usage.ACCESS;
@@ -142,7 +142,7 @@ public final class HexagonalArchitecture implements ArchRule {
     }
 
     private Architectures.LayeredArchitecture layeredArchitectureDelegate() {
-        Architectures.LayeredArchitecture layeredArchitectureDelegate = Architectures.layeredArchitecture()
+        Architectures.LayeredArchitecture layeredArchitectureDelegate = Architectures.layeredArchitecture().consideringAllDependencies()
             .layer(DOMAIN_LAYER).definedBy(domainPackageIdentifiers)
             .layer(APPLICATION_SERVICE_LAYER).definedBy(applicationPackageIdentifiers)
             .layer(COMMONS).definedBy(commonPackageIdentitiers);
