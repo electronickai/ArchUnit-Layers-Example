@@ -26,8 +26,6 @@ public class AddMethodsMustAccessSetCondition extends ArchCondition<JavaMethod> 
 
         for (JavaFieldAccess fieldAccess : method.getFieldAccesses()) {
             if (fieldAccess.getTarget().getType().toErasure().isAssignableFrom(Set.class)) {
-                events.add(SimpleConditionEvent.satisfied(method, "Method "
-                        + method + " starting with add does access a field of type Set. All fine "));
                 return;
             }
         }
