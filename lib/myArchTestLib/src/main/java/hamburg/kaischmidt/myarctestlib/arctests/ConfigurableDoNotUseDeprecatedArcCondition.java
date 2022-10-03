@@ -7,7 +7,6 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class ConfigurableDoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> {
@@ -36,6 +35,9 @@ public class ConfigurableDoNotUseDeprecatedArcCondition extends ArchCondition<Ja
         .isAnnotatedWith(Deprecated.class)) {
       conditionEvents.add(SimpleConditionEvent.violated(call.getOrigin(), "CodeUnit "
           + call.getOrigin() + " calls deprecated " + target.getFullName()));
+    } else {
+      conditionEvents.add(SimpleConditionEvent.satisfied(call.getOrigin(), "CodeUnit "
+          + call.getOrigin() + " calls method " + target.getFullName() + " that isn't deprecated"));
     }
   }
 

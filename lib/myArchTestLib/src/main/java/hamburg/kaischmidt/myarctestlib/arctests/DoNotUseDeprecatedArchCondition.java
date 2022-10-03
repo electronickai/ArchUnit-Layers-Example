@@ -9,25 +9,39 @@ import com.tngtech.archunit.lang.SimpleConditionEvent;
 
 public class DoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit> {
 
-    public DoNotUseDeprecatedArchCondition(String description, Object... args) {
-        super(description, args);
-    }
+  public DoNotUseDeprecatedArchCondition(String description, Object... args) {
+    super(description, args);
+  }
 
-    public DoNotUseDeprecatedArchCondition() {
-        this("not call deprecated CodeUnits");
-    }
+  public DoNotUseDeprecatedArchCondition() {
+    this("not call deprecated CodeUnits");
+  }
 
-    @Override
-    public void check(JavaCodeUnit codeUnit, ConditionEvents conditionEvents) {
-        codeUnit.getCallsFromSelf().forEach(call -> checkCall(call, conditionEvents));
-    }
+  @Override public void init(Iterable<JavaCodeUnit> allObjectsToTest) {
+    System.out.println("INIT: objects to test are:");
+    allObjectsToTest.forEach(codeUnit -> System.out.println(codeUnit.getFullName()));
+  }
 
-    private void checkCall(JavaCall<?> call, ConditionEvents conditionEvents) {
-        AccessTarget target = call.getTarget();
+  @Override
+  public void check(JavaCodeUnit codeUnit, ConditionEvents conditionEvents) {
+    codeUnit.getCallsFromSelf().forEach(call -> checkCall(call, conditionEvents));
+  }
 
-        if (target.isAnnotatedWith(Deprecated.class) || target.getOwner().isAnnotatedWith(Deprecated.class)) {
-            conditionEvents.add(SimpleConditionEvent.violated(call.getOrigin(), "CodeUnit "
-                + call.getOrigin() + " calls deprecated " + target.getFullName()));
-        }
+  private void checkCall(JavaCall<?> call, ConditionEvents conditionEvents) {
+    AccessTarget target = call.getTarget();
+
+    if (target.isAnnotatedWith(Deprecated.class) || target.getOwner().isAnnotatedWith(Deprecated.class)) {
+      conditionEvents.add(SimpleConditionEvent.violated(call.getOrigin(), "CodeUnit "
+          + call.getOrigin() + " calls deprecated " + target.getFullName()));
+    } else {
+      conditionEvents.add(SimpleConditionEvent.satisfied(call.getOrigin(), "CodeUnit "
+          + call.getOrigin() + " calls method " + target.getFullName() + " that isn't deprecated"));
     }
+  }
+
+  @Override public void finish(ConditionEvents events) {
+    System.out.println("FINISH: satisfied calls:");
+    events.getAllowed()
+        .forEach(conditionEvent -> System.out.println(conditionEvent.getDescriptionLines()));
+  }
 }

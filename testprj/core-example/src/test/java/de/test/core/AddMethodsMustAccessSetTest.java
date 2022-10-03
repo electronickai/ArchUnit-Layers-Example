@@ -7,12 +7,10 @@ import hamburg.kaischmidt.myarctestlib.arctests.AddMethodsMustAccessSetCondition
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.codeUnits;
 
-@AnalyzeClasses(
-    packages = "de.test.core.."
-)
+@AnalyzeClasses(packages = "de.test.core..")
 public class AddMethodsMustAccessSetTest {
 
   @ArchTest
-  static final ArchRule addMethodsMusTAccessSet = codeUnits().should(new AddMethodsMustAccessSetCondition());
+  static final ArchRule addMethodsMustAccessSet = codeUnits().should(new AddMethodsMustAccessSetCondition());
 
 }
