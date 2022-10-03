@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AnalyzeClasses(packages = "deprecated..")
 public class NoDeprecationCallsTest {
 
-    //This ArchUnit check fails because the deprecated methods are called from the non deprecated "CallerOfDeprecatedMethod"
+    // The check should fail. So we assert that the expected violations are in the ArchUnit result
     @ArchTest
     public static void test_doNotUseDeprecatedOps(JavaClasses classes) {
 
@@ -27,7 +27,7 @@ public class NoDeprecationCallsTest {
         throw new AssertionError("This should throw an AssertionError to indicated that the architecture is wrong");
     }
 
-    //This would be an alternative way for the same functionality
+    // This would be an alternative way for the same functionality
     @ArchTest
     public static void test_doNotUseDeprecatedOpsAlternative(JavaClasses classes) {
 

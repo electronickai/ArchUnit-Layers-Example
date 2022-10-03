@@ -3,12 +3,12 @@ package hamburg.kaischmidt.myarctestlib.arctests;
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaCodeUnit;
 
-public class DeprecatedPredicate extends DescribedPredicate<JavaCodeUnit> {
-    public DeprecatedPredicate(String description, Object... params) {
+public class NotDeprecatedPredicate extends DescribedPredicate<JavaCodeUnit> {
+    public NotDeprecatedPredicate(String description, Object... params) {
         super(description, params);
     }
 
-    public DeprecatedPredicate() {
+    public NotDeprecatedPredicate() {
         this("are deprecated");
     }
 

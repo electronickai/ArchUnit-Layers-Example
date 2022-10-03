@@ -14,7 +14,7 @@ public class MyArchTestLibrary {
     private MyArchTestLibrary() {
     }
 
-    private static final DescribedPredicate<JavaCodeUnit> ARE_NOT_DEPRECATED = new DeprecatedPredicate();
+    private static final DescribedPredicate<JavaCodeUnit> ARE_NOT_DEPRECATED = new NotDeprecatedPredicate();
 
     private static final ArchCondition<JavaCodeUnit> NOT_USE_DEPRECATED_OPERATIONS
         = new DoNotUseDeprecatedArchCondition();
