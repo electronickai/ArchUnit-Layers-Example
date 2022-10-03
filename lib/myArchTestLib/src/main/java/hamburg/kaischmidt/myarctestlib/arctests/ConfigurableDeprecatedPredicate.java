@@ -18,7 +18,7 @@ public class ConfigurableDeprecatedPredicate extends DescribedPredicate<JavaCode
     }
 
     @Override
-    public boolean apply(JavaCodeUnit codeUnit) {
+    public boolean test(JavaCodeUnit codeUnit) {
         boolean skip = codeUnit.isAnnotatedWith(Deprecated.class)
                 || codeUnit.getOwner().isAnnotatedWith(Deprecated.class)
                 || packagesToSkip.contains(codeUnit.getOwner().getPackageName());

@@ -13,7 +13,7 @@ public class NotDeprecatedPredicate extends DescribedPredicate<JavaCodeUnit> {
     }
 
     @Override
-    public boolean apply(JavaCodeUnit codeUnit) { //TODO update ArchUnit
+    public boolean test(JavaCodeUnit codeUnit) {
         return !codeUnit.isAnnotatedWith(Deprecated.class)
             && !codeUnit.getOwner().isAnnotatedWith(Deprecated.class);
 
