@@ -1,6 +1,6 @@
 # ArchUnit-Layers-Example
 
-Usually ArchUnit is explained on the level of the quite easy understandable fluent API of the `Lang Layer` like
+Usually [ArchUnit](https://www.archunit.org/) is explained on the level of the quite easy understandable fluent API of the `Lang Layer` like
 
 ```java
 classes().that().resideInAPackage(codeRoot).should().should().dependOnClassesThat().areInterfaces()`
@@ -16,6 +16,7 @@ However, with this project we want to give a brief overview about other useful b
 - How to check your ArchUnit tests against valid architectures but also against architectures that are violating your defined rules?
 
 In this way this project is rather a complement to the good known accompanying project of ArchUnit called [ArchUnit-Examples](https://github.com/TNG/ArchUnit-Examples).
+This project has been presented in the scope of the `Java Forum Nord 2022`. Feel free to download the [slides](./ArchUnit-Layers-Example.pdf).
 
 ## Project setup
 
@@ -23,12 +24,12 @@ The project is build as a modular maven project. So, after cloning or forking th
 The Java language level has been deliberately set to Java 8. So the project should (probably) work with the Java version you are using.
 
 the project consists of the following modules:
-- core-example: 
-- lib:
-- rain:
-- sunshine:
+- `core-example`: Example implementation using the core API (implementation of the example of the slides).
+- `lib`: Library project that contains predicates, rules and conditions that are used within the projects. The idea is that such a library may be used in several (sub-) projects to align to a kind of macro architecture.
+- `rain`: Test projects to check whether architecture violations are recognized correctly (kind of negative tests).
+- `sunshine`: Test projects to check that valid architectures are recognized to be valid (kind of positive tests). 
 
 ## Troubleshooting
 
 If you are using IntelliJ and get an error message like `` when executing the tests and neither `Reload All Maven Projects` nor `invalidate Caches...` helps ot, try to disable the `--release option for cross complilation`
-or make sure that the configured SDK of the project matches the bytecode version of the compiler like suggest in this [Stackoverflow post](https://stackoverflow.com/questions/40448203/intellij-says-the-package-does-not-exist-but-i-can-access-the-package)
+or make sure that the configured SDK of the project matches the bytecode version of the compiler like suggest in this [Stackoverflow post](https://stackoverflow.com/questions/40448203/intellij-says-the-package-does-not-exist-but-i-can-access-the-package).
