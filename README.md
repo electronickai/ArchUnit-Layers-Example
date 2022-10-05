@@ -3,7 +3,7 @@
 Usually [ArchUnit](https://www.archunit.org/) is explained on the level of the quite easy understandable fluent API of the `Lang Layer` like
 
 ```java
-classes().that().resideInAPackage(codeRoot).should().should().dependOnClassesThat().areInterfaces()`
+classes().that().resideInAPackage(codeRoot).should().should().dependOnClassesThat().areInterfaces()
 ```
 
 We can easily understand that level because this layer is really a powerful tool and due to the composable character of this fluent API, a lot of rules are possible.
