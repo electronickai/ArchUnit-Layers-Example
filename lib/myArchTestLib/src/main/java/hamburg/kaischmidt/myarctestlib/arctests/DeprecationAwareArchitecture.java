@@ -42,8 +42,8 @@ public class DeprecationAwareArchitecture implements ArchRule {
 
   @Override public EvaluationResult evaluate(JavaClasses classes) {
     EvaluationResult result = new EvaluationResult(this, Priority.MEDIUM);
-    ConfigurableDeprecatedPredicate predicate = new ConfigurableDeprecatedPredicate(packagesAllowedToUseDeprecated);
-    ConfigurableDoNotUseDeprecatedArcCondition condition = new ConfigurableDoNotUseDeprecatedArcCondition(packagesAllowedToBeCalled);
+    ConfigurableNotDeprecatedPredicate predicate = new ConfigurableNotDeprecatedPredicate(packagesAllowedToUseDeprecated);
+    ConfigurableDoNotUseDeprecatedArchCondition condition = new ConfigurableDoNotUseDeprecatedArchCondition(packagesAllowedToBeCalled);
     result.add(codeUnits().that(predicate).should(condition).evaluate(classes));
     return result;
   }

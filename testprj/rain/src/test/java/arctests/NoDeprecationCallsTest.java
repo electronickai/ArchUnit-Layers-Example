@@ -46,7 +46,7 @@ public class NoDeprecationCallsTest {
     // with a configuration of a whitelist the test passes
     // (one of the two packages configuration would be sufficient to make the test pass)
     @ArchTest
-    public static final ArchRule configureDeprecatedOpCalls =
+    public static final ArchRule test_doNotUseDeprecatedOpsConfigurable =
             MyArchTestLibrary.deprecationAwareArchitecture()
                     .packages("deprecated.callees").areAllowedToBeCalled()
                     .packages("deprecated.callers").areAllowedToUseDeprecated();

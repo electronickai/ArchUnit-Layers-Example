@@ -9,12 +9,12 @@ import com.tngtech.archunit.lang.SimpleConditionEvent;
 
 import java.util.Set;
 
-public class ConfigurableDoNotUseDeprecatedArcCondition extends ArchCondition<JavaCodeUnit> {
+public class ConfigurableDoNotUseDeprecatedArchCondition extends ArchCondition<JavaCodeUnit> {
 
   public static final String DEFAULT_DESCRIPTION = "not call deprecated CodeUnits";
   private final Set<String> packagesAllowedToBeCalled;
 
-  public ConfigurableDoNotUseDeprecatedArcCondition(Set<String> packagesAllowedToBeCalled) {
+  public ConfigurableDoNotUseDeprecatedArchCondition(Set<String> packagesAllowedToBeCalled) {
     super(DEFAULT_DESCRIPTION);
     this.packagesAllowedToBeCalled = packagesAllowedToBeCalled;
   }

@@ -18,6 +18,16 @@ However, with this project we want to give a brief overview about other useful b
 In this way this project is rather a complement to the good known accompanying project of ArchUnit called [ArchUnit-Examples](https://github.com/TNG/ArchUnit-Examples).
 This project has been presented in the scope of the `Java Forum Nord 2022`. Feel free to download the [slides](./ArchUnit-Layers-Example.pdf).
 
+## Main examples
+
+- Example of the core API used in the slides is implemented in [AddMethodsMustAccessSetTest](./testprj/core-example/src/test/java/de/test/core/AddMethodsMustAccessSetTest.java). This test fails on purpose to show the functionality of the test in an easy way. You could fix the test either by
+  - removing the addMethods in the class [Talk](./testprj/core-example/src/main/java/de/test/core/Talk.java)
+  - adding a field access to a `java.util.Set` to fulfill the test criteria (like the class [Agenda](./testprj/core-example/src/main/java/de/test/core/Agenda.java) does)
+- All tests for the deprecation checks can be found in [NoDeprecationCallsTest](./testprj/rain/src/test/java/arctests/NoDeprecationCallsTest.java)
+  - The method `test_doNotUseDeprecatedOps` is using the "static" Predicate [NotDeprecatedPredicate](./lib/myArchTestLib/src/main/java/hamburg/kaischmidt/myarctestlib/arctests/NotDeprecatedPredicate.java) and Condition [DoNotUseDeprecatedArchCondition](./lib/myArchTestLib/src/main/java/hamburg/kaischmidt/myarctestlib/arctests/DoNotUseDeprecatedArchCondition.java).
+  - The method `test_doNotUseDeprecatedOpsAlternative` is using the configurable Predicate [ConfigurableNotDeprecatedPredicate](./lib/myArchTestLib/src/main/java/hamburg/kaischmidt/myarctestlib/arctests/ConfigurableNotDeprecatedPredicate.java) and Condition [ConfigurableDoNotUseDeprecatedArchCondition](./lib/myArchTestLib/src/main/java/hamburg/kaischmidt/myarctestlib/arctests/ConfigurableDoNotUseDeprecatedArchCondition.java) but doesn't do any configuration.
+  - The method `test_doNotUseDeprecatedOpsConfigurable` configures the Predicate and Condition.
+
 ## Project setup
 
 The project is build as a modular maven project. So, after cloning or forking the project, your IDE should grasp the structure of it.
